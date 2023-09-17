@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: insulina-control-postgresql-svc
+spec:
+  type: NodePort
+  selector:
+    app: insulina-control-postgresql
+  ports:
+    - port: 5432
+      targetPort: 5432
+      nodePort: 30000
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: insulina-control-postgresql-secret
+data:
+  POSTGRES_PASSWORD: "cG9zdDEyMwo="
+stringData:
+  POSTGRES_USER: "postgres"
+  POSTGRES_DB: "insulina-control-db"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: insulina-control-postgresql-pod
+  labels:
+    app: insulina-control-postgresql
+spec:
+  containers:
+    - name: postgresql
+      image: postgres
+      envFrom:
+        - secretRef:
+            name: insulina-control-postgresql-secret
+      ports:
+        - containerPort: 5432
