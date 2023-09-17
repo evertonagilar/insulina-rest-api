@@ -2,7 +2,7 @@
 
 Projeto desenvolvido com SpringBoot para implementar na prática uma API REST com autenticação e controle de acesso. 
 
-## Subir banco de dados PostgresSQL no Kubernetes
+## Subir banco de dados PostgreSQL no Kubernetes
 
 ```bash
     kubectl apply -f insulina-control-deployment.yaml
